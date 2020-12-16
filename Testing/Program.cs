@@ -9,7 +9,7 @@ using Serilog;
 
 using CustomerLookup.Contracts;
 using CustomerLookup.Cache;
-using CustomerLookup.Business;
+using CustomerLookup.BusinessLogic;
 using CustomerLookup.Context;
 
 
@@ -32,7 +32,7 @@ var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
     services.AddTransient<Executor>();
     services.AddSingleton<ICustomerLookupCache, CustomerLookupCache>();
     services.AddSingleton<ICustomerLookupContext, CustomerLookupContext>();
-    services.AddSingleton<CustomerLookupBusiness>();
+    services.AddSingleton<CustomerLookupBusinessLogic>();
     services.AddDistributedMemoryCache();
     //services.AddStackExchangeRedisCache(options =>
     //{
@@ -41,6 +41,7 @@ var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
     //});
 
 }).UseSerilog().Build();
+
 
 
 var executor = ActivatorUtilities.CreateInstance<Executor>(host.Services);

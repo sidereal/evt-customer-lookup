@@ -9,9 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 using CustomerLookup.Contracts;
-using CustomerLookup.Cache;
 using CustomerLookup.Models;
-using CustomerLookup.Business;
+using CustomerLookup.BusinessLogic;
 
 
 public class Executor
@@ -19,9 +18,9 @@ public class Executor
     private readonly ILogger<Executor> _logger;
     private readonly IConfiguration _config;
     private readonly ICustomerLookupCache _cache;
-    private readonly CustomerLookupBusiness _businessLogic;
+    private readonly CustomerLookupBusinessLogic _businessLogic;
 
-    public Executor(ILogger<Executor> logger, IConfiguration config, ICustomerLookupCache customerLookupCache , CustomerLookupBusiness customerLookupBusiness)
+    public Executor(ILogger<Executor> logger, IConfiguration config, ICustomerLookupCache customerLookupCache , CustomerLookupBusinessLogic customerLookupBusiness)
     {
         _logger = logger;
         _config = config;

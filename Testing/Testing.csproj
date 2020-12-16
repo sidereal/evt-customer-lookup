@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CustomerLookupBusiness\CustomerLookup_Business.csproj" />
+    <ProjectReference Include="..\CustomerLookup_BusinessLogic\CustomerLookup_BusinessLogic.csproj" />
     <ProjectReference Include="..\CustomerLookup_Cache\CustomerLookup_Cache.csproj" />
     <ProjectReference Include="..\CustomerLookup_Context\CustomerLookup_Context.csproj" />
   </ItemGroup>

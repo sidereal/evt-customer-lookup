@@ -10,16 +10,16 @@ using Microsoft.Extensions.Logging;
 using CustomerLookup.Models.DataModels;
 using System.Threading.Tasks;
 
-namespace CustomerLookup.Business
+namespace CustomerLookup.BusinessLogic
 {
-    public class CustomerLookupBusiness
+    public class CustomerLookupBusinessLogic
     {
         private readonly IConfiguration _config;
-        private readonly ILogger<CustomerLookupBusiness> _logger;
+        private readonly ILogger<CustomerLookupBusinessLogic> _logger;
         private readonly ICustomerLookupContext _context;
         private readonly ICustomerLookupCache _cache;
 
-        public CustomerLookupBusiness(IConfiguration config, ILogger<CustomerLookupBusiness> logger, ICustomerLookupContext context, ICustomerLookupCache cache)
+        public CustomerLookupBusinessLogic(IConfiguration config, ILogger<CustomerLookupBusinessLogic> logger, ICustomerLookupContext context, ICustomerLookupCache cache)
         {
             _config = config;
             _logger = logger;
