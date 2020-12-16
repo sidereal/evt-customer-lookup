@@ -70,5 +70,7 @@ public class Executor
         _logger.LogInformation("RUNNING");
         var x = await _businessLogic.GetCustomerAsync(customer);
         if (x is not null) _logger.LogInformation($"{x.CUSTOMER_ID}...{x.CUST_BIRTH_DATE}");
+        var y = await _businessLogic.GetCustomerAsync(customer);
+        if (y is not null) _logger.LogInformation($"{y.CUSTOMER_ID}...{y.CUST_BIRTH_DATE}");
     }
 }
