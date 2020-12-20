@@ -29,36 +29,36 @@ namespace CustomerLookup.Cache
             _distributedCache = distributedCache;
         }
 
-        public async Task<T> GetCacheValueAsync<T>(string key)
+        public async Task<T> GetCacheValueAsync<T>(string key, string prefix = "")
         {
-            var cacheValue = await _distributedCache.GetStringAsync(FullKey(key));
+            var cacheValue = await _distributedCache.GetStringAsync(FullKey(key, prefix));
             //return JsonSerializer.Deserialize<T>(cacheValue);
             return cacheValue != null ? JsonSerializer.Deserialize<T>(cacheValue) : default;
         }
 
-        public async Task SetCacheValueAsync<T>(string key, T value)
+        public async Task SetCacheValueAsync<T>(string key, T value, string prefix = "")
         {
             var options = new DistributedCacheEntryOptions();
             var cacheValue = JsonSerializer.Serialize(value);
-            
-            
+
+
             options.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(lifeSpan);
-            await _distributedCache.SetStringAsync(FullKey(key), cacheValue, options);
+            await _distributedCache.SetStringAsync(FullKey(key, prefix), cacheValue, options);
         }
 
-        public void SetCacheValue<T>(string key, T value)
+        public void SetCacheValue<T>(string key, T value, string prefix = "")
         {
             var options = new DistributedCacheEntryOptions();
             var cacheValue = JsonSerializer.Serialize(value);
             options.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(lifeSpan);
-            _distributedCache.SetString(FullKey(key), cacheValue, options);
+            _distributedCache.SetString(FullKey(key, prefix), cacheValue, options);
         }
 
-        public T GetCacheValue<T>(string key)
+        public T GetCacheValue<T>(string key, string prefix = "")
         {
-            var cacheValue = _distributedCache.GetString(FullKey(key));
-            
-            return cacheValue !=null ? JsonSerializer.Deserialize<T>(cacheValue):default;
+            var cacheValue = _distributedCache.GetString(FullKey(key, prefix));
+
+            return cacheValue != null ? JsonSerializer.Deserialize<T>(cacheValue) : default;
         }
 
         //public async Task SetCacheValueAsync(string key, string value)
@@ -68,13 +68,12 @@ namespace CustomerLookup.Cache
         //    await _distributedCache.SetStringAsync(key, value, options);
         //}
 
-        string FullKey(string key)
+        string FullKey(string key, string prefix = "")
         {
+            if (!string.IsNullOrEmpty(prefix)) prefix += "_";
             var dateStamp = DateTime.Now.ToString("yyyy.MM.dd");
-            return $"{dateStamp}_{key}";
-
+            var fullKey = $"{dateStamp}_{prefix}{key}";
+            return fullKey;
         }
-
-
     }
 }

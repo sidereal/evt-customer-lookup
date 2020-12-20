@@ -12,12 +12,12 @@ namespace CustomerLookup.Contracts
 
         //Task SetCacheValueAsync(string key, string value);
 
-        Task SetCacheValueAsync<T>(string key, T value);
+        Task SetCacheValueAsync<T>(string key, T value, string prefix="");
 
-        Task<T> GetCacheValueAsync<T>(string key);
+        Task<T> GetCacheValueAsync<T>(string key, string prefix="");
 
-        void SetCacheValue<T>(string key, T value);
+        void SetCacheValue<T>(string key, T value, string prefix="");
 
-        T GetCacheValue<T>(string key);
+        T GetCacheValue<T>(string key, string prefix="");
     }
 }

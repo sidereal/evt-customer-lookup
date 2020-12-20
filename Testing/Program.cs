@@ -11,7 +11,8 @@ using CustomerLookup.Contracts;
 using CustomerLookup.Cache;
 using CustomerLookup.BusinessLogic;
 using CustomerLookup.Context;
-
+using CustomerLookup.Models.Maps;
+using AutoMapper;
 
 
 
@@ -30,6 +31,12 @@ Log.Logger.Information("Launching");
 var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
 {
     services.AddTransient<Executor>();
+    services.AddAutoMapper(cfg =>
+    {
+        cfg.AddProfile<CustomerProfile>();
+        cfg.AddProfile<TxnProfile>();
+        cfg.AddProfile<AgreementProfile>();
+    });
     services.AddSingleton<ICustomerLookupCache, CustomerLookupCache>();
     services.AddSingleton<ICustomerLookupContext, CustomerLookupContext>();
     services.AddSingleton<CustomerLookupBusinessLogic>();
@@ -45,7 +52,7 @@ var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
 
 
 var executor = ActivatorUtilities.CreateInstance<Executor>(host.Services);
-await executor.Testing03Async();
+await executor.Testing04Async();
 //executor.Testing02();
 
 

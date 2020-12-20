@@ -58,7 +58,7 @@ public class Executor
         var customer = "380000000000000082461";
         _logger.LogInformation("RUNNING");
         var x = _businessLogic.GetCustomer(customer);
-        if(x is not null) _logger.LogInformation($"{x.CUSTOMER_ID}...{x.CUST_BIRTH_DATE}");
+        if(x is not null) _logger.LogInformation($"{x.Id}...{x.BirthDate}");
 
         //380000000000000082461
     }
@@ -67,9 +67,30 @@ public class Executor
     {
         var customer = "380000000000000082461";
         _logger.LogInformation("RUNNING");
-        var x = await _businessLogic.GetCustomerAsync(customer);
-        if (x is not null) _logger.LogInformation($"{x.CUSTOMER_ID}...{x.CUST_BIRTH_DATE}");
+        var x = _businessLogic.GetCustomer(customer);
+        if (x is not null) _logger.LogInformation($"{x.Id}...{x.BirthDate}");
         var y = await _businessLogic.GetCustomerAsync(customer);
-        if (y is not null) _logger.LogInformation($"{y.CUSTOMER_ID}...{y.CUST_BIRTH_DATE}");
+        if (y is not null) _logger.LogInformation($"{y.Id}...{y.BirthDate}");
     }
+
+    public async Task Testing04Async()
+    {
+        var customer = "380000000000000082461";
+        _logger.LogInformation("RUNNING");
+        var aa = _businessLogic.GetCustomer(customer);
+        if (aa is not null) _logger.LogInformation($"{aa.Id}...{aa.BirthDate}");
+        var bb = await _businessLogic.GetCustomerAsync(customer);
+        if (bb is not null) _logger.LogInformation($"{bb.Id}...{bb.BirthDate}");
+        var cc = await _businessLogic.GetAllTxnAsync(customer);
+        if (cc is not null) _logger.LogInformation($"Txn found -> {cc.Count}");
+        var dd = await _businessLogic.GetAllTxnAsync(customer);
+        if (dd is not null) _logger.LogInformation($"Txn found -> {dd.Count}");
+
+        var ee = await _businessLogic.GetAllAgreementsAsync(customer);
+        if (ee is not null) _logger.LogInformation($"Agreements found -> {ee.Count}");
+        var ff = await _businessLogic.GetAllAgreementsAsync(customer);
+        if (ff is not null) _logger.LogInformation($"Agreements found -> {ff.Count}");
+    }
+
+
 }
