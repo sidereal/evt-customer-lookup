@@ -22,6 +22,7 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
+    <TargetDatabase>CustomerLookup_Database</TargetDatabase>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -58,12 +59,23 @@
     <Folder Include="Properties" />
     <Folder Include="dbo" />
     <Folder Include="dbo\Tables" />
+    <Folder Include="dbo\Procedures" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Lookup_Txn_getByCustomerId.sql" />
     <Build Include="dbo\Tables\Txn.sql" />
-    <Build Include="dbo\Lookup_Customer_GetByCustomerId.sql" />
     <Build Include="dbo\Tables\Customers.sql" />
+    <Build Include="dbo\Tables\Agreements.sql" />
+    <Build Include="dbo\Tables\Statistics_Event01.sql" />
+    <Build Include="dbo\Tables\Statistics_Event04.sql" />
+    <Build Include="dbo\Tables\Statistics_Event06.sql" />
+    <Build Include="dbo\Tables\Statistics_Event05.sql" />
+    <Build Include="dbo\Procedures\Lookup_Agreements_GetByCustomerId.sql" />
+    <Build Include="dbo\Procedures\Lookup_Customer_GetByCustomerId.sql" />
+    <Build Include="dbo\Procedures\Lookup_Txn_GetByCustomerId.sql" />
+    <Build Include="dbo\Procedures\Lookup_Statistics01_GetByCustomerId.sql" />
+    <Build Include="dbo\Procedures\Lookup_Statistics04_GetByCustomerId.sql" />
+    <Build Include="dbo\Procedures\Lookup_Statistics06_GetByCustomerId.sql" />
+    <Build Include="dbo\Procedures\Lookup_Statistics05_GetByCustomerId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CustomerLookup_Database.publish.xml" />

@@ -23,11 +23,11 @@ namespace CustomerLookup.BusinessLogic
                 if (result is not null)
                 {
                     _cache.SetCacheValue(customerId, result, agreementPrefix);
-                    _logger.LogInformation($"DB Hit for customer: {customerId}");
+                    _logger.LogInformation($"Agreements > DB Hit for customer: {customerId}");
                 }
-                else _logger.LogInformation($"No Hit for customer: {customerId}");
+                else _logger.LogInformation($"Agreements > No Hit for customer: {customerId}");
             }
-            else _logger.LogInformation($"Cache Hit for customer: {customerId}");
+            else _logger.LogInformation($"Agreements > Cache Hit for customer: {customerId}");
 
             return _mapper.Map<List<AgreementDto>>(result);
         }
@@ -42,11 +42,11 @@ namespace CustomerLookup.BusinessLogic
                 if (result is not null)
                 {
                     _cache.SetCacheValueAsync(customerId, result, agreementPrefix);
-                    _logger.LogInformation($"DB Hit for customer: {customerId}");
+                    _logger.LogInformation($"Agreements > DB Hit for customer: {customerId}");
                 }
-                else _logger.LogInformation($"No Hit for customer: {customerId}");
+                else _logger.LogInformation($"Agreements > No Hit for customer: {customerId}");
             }
-            else _logger.LogInformation($"Cache Hit for customer: {customerId}");
+            else _logger.LogInformation($"Agreements > Cache Hit for customer: {customerId}");
 
             return _mapper.Map<List<AgreementDto>>(result);
         }

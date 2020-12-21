@@ -27,9 +27,6 @@ namespace CustomerLookup.Context
 
         }
 
-        public async Task GetStatsByCustomerIdAsync(string customerId)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

@@ -36,6 +36,7 @@ var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
         cfg.AddProfile<CustomerProfile>();
         cfg.AddProfile<TxnProfile>();
         cfg.AddProfile<AgreementProfile>();
+        cfg.AddProfile<StatisticProfile>();
     });
     services.AddSingleton<ICustomerLookupCache, CustomerLookupCache>();
     services.AddSingleton<ICustomerLookupContext, CustomerLookupContext>();
