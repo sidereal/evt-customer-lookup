@@ -19,8 +19,7 @@ namespace CustomerLookup.Cache
         private readonly IConfiguration _config;
         private readonly ILogger<CustomerLookupCache> _logger;
         private readonly IDistributedCache _distributedCache;
-
-        int lifeSpan = 1120;
+        private int _lifeSpan = 24;
 
         public CustomerLookupCache(IConfiguration config, ILogger<CustomerLookupCache> logger, IDistributedCache distributedCache)
         {
@@ -42,7 +41,7 @@ namespace CustomerLookup.Cache
             var cacheValue = JsonSerializer.Serialize(value);
 
 
-            options.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(lifeSpan);
+            options.AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(_lifeSpan);
             await _distributedCache.SetStringAsync(FullKey(key, prefix), cacheValue, options);
         }
 
@@ -50,7 +49,7 @@ namespace CustomerLookup.Cache
         {
             var options = new DistributedCacheEntryOptions();
             var cacheValue = JsonSerializer.Serialize(value);
-            options.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(lifeSpan);
+            options.AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(_lifeSpan);
             _distributedCache.SetString(FullKey(key, prefix), cacheValue, options);
         }
 
@@ -68,7 +67,7 @@ namespace CustomerLookup.Cache
         //    await _distributedCache.SetStringAsync(key, value, options);
         //}
 
-        string FullKey(string key, string prefix = "")
+        private static string FullKey(string key, string prefix = "")
         {
             if (!string.IsNullOrEmpty(prefix)) prefix += "_";
             var dateStamp = DateTime.Now.ToString("yyyy.MM.dd");
