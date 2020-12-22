@@ -41,8 +41,9 @@ namespace CustomerLookup.BusinessLogic
                 
                 if (result is not null)
                 {
-                    _cache.SetCacheValueAsync(customerId, result, prefix);
+                    //_cache.SetCacheValueAsync(customerId, result, prefix);
                     _logger.LogInformation($"Stats {prefix} > DB Hit for customer: {customerId}");
+                    _ = PrecacheAsync(customerId);
                 }
                 else _logger.LogInformation($"Stats {prefix} > No Hit for customer: {customerId}");
             }

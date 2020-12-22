@@ -41,8 +41,9 @@ namespace CustomerLookup.BusinessLogic
                 result = await _context.GetTxnByCustomerIdAsync(customerId);
                 if (result is not null)
                 {
-                    _cache.SetCacheValueAsync(customerId, result, txnPrefix);
+                    //_ = _cache.SetCacheValueAsync(customerId, result, txnPrefix);
                     _logger.LogInformation($"Txn > DB Hit for customer: {customerId}");
+                    _ = PrecacheAsync(customerId);
                 }
                 else _logger.LogInformation($"Txn > No Hit for customer: {customerId}");
             }
@@ -59,11 +60,11 @@ namespace CustomerLookup.BusinessLogic
 
             if (result is null)
             {
-                result = _context.GetTxnByCustomerIdAsync(customerId).Result;
+                result = await _context.GetTxnByCustomerIdAsync(customerId);
                 if (result is not null)
                 {
-                    _ = _cache.SetCacheValueAsync(customerId, result, txnPrefix);
                     _logger.LogInformation($"Txn > DB Hit for customer: {customerId}");
+                    _ = PrecacheAsync(customerId);
                 }
 
                 else { _logger.LogInformation($"Txn > No Hit for customer: {customerId}"); return null; }

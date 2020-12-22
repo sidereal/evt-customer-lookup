@@ -41,8 +41,9 @@ namespace CustomerLookup.BusinessLogic
                 result = await _context.GetAgreementsByCustomerIdAsync(customerId);
                 if (result is not null)
                 {
-                    _cache.SetCacheValueAsync(customerId, result, agreementPrefix);
+                    //_ = _cache.SetCacheValueAsync(customerId, result, agreementPrefix);
                     _logger.LogInformation($"Agreements > DB Hit for customer: {customerId}");
+                    _ = PrecacheAsync(customerId);
                 }
                 else _logger.LogInformation($"Agreements > No Hit for customer: {customerId}");
             }

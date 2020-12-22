@@ -40,8 +40,10 @@ namespace CustomerLookup.BusinessLogic
                 result = await _context.GetCustomerByCustomerIdAsync(customerId);
                 if (result is not null)
                 {
-                    _cache.SetCacheValueAsync(customerId, result);
+                    //_cache.SetCacheValueAsync(customerId, result);
                     _logger.LogInformation($"Customer > DB Hit for customer: {customerId}");
+                    _ = PrecacheAsync(customerId);
+                    
                 }
                 else _logger.LogInformation($"Customer > No Hit for customer: {customerId}");
             }

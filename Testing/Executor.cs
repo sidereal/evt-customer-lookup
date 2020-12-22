@@ -11,7 +11,7 @@ using Serilog;
 using CustomerLookup.Contracts;
 using CustomerLookup.Models;
 using CustomerLookup.BusinessLogic;
-
+using System;
 
 public class Executor
 {
@@ -20,7 +20,7 @@ public class Executor
     private readonly ICustomerLookupCache _cache;
     private readonly CustomerLookupBusinessLogic _businessLogic;
 
-    public Executor(ILogger<Executor> logger, IConfiguration config, ICustomerLookupCache customerLookupCache , CustomerLookupBusinessLogic customerLookupBusiness)
+    public Executor(ILogger<Executor> logger, IConfiguration config, ICustomerLookupCache customerLookupCache, CustomerLookupBusinessLogic customerLookupBusiness)
     {
         _logger = logger;
         _config = config;
@@ -58,7 +58,7 @@ public class Executor
         var customer = "380000000000000082461";
         _logger.LogInformation("RUNNING");
         var x = _businessLogic.GetCustomer(customer);
-        if(x is not null) _logger.LogInformation($"{x.Id}...{x.BirthDate}");
+        if (x is not null) _logger.LogInformation($"{x.Id}...{x.BirthDate}");
 
         //380000000000000082461
     }
@@ -96,7 +96,23 @@ public class Executor
         var hh = await _businessLogic.GetStatsByTypeAsync(customer, StatisticsTypes.s04);
         if (hh is not null) _logger.LogInformation($"Stats 04 found -> {hh.Count}");
 
-        var ii = await _businessLogic.GetTxnPageAsync(customer,1,2);
+        var ii = await _businessLogic.GetTxnPageAsync(customer, 1, 2);
         if (ii is not null) _logger.LogInformation($"Txn found -> {ii.Count}");
     }
+
+    public async Task Testing05Async()
+    {
+
+
+        //var customer = "380000000000000082446";
+        var customer = "380000000000000082461";
+        _logger.LogInformation("RUNNING");
+
+        var x = await _businessLogic.GetAllAgreementsAsync(customer);
+        if (x is not null) _logger.LogInformation($"count > {x.Count}");
+
+        _logger.LogInformation("DONE");
+        Console.ReadLine();
+    }
+
 }

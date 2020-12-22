@@ -20,7 +20,7 @@ namespace CustomerLookup.Cache
         private readonly ILogger<CustomerLookupCache> _logger;
         private readonly IDistributedCache _distributedCache;
 
-        int lifeSpan = 120;
+        int lifeSpan = 1120;
 
         public CustomerLookupCache(IConfiguration config, ILogger<CustomerLookupCache> logger, IDistributedCache distributedCache)
         {
