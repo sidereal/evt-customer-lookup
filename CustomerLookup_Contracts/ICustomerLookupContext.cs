@@ -10,6 +10,7 @@ namespace CustomerLookup.Contracts
         Task<Customer> GetCustomerByCustomerIdAsync(string customerId);
         
         Task<List<Txn>> GetTxnByCustomerIdAsync(string customerId);
+        Task<List<Txn>> GetTxnPageByCustomerIdAsync(string customerId, int page, int size);
         Task<List<Agreement>> GetAgreementsByCustomerIdAsync(string customerId);
 
         Task<List<Statistics>> GetStatistics01ByCustomerIdAsync(string customerId);

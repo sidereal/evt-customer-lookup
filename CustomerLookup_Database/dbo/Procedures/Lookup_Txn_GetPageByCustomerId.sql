@@ -1,5 +1,8 @@
-﻿CREATE PROCEDURE [dbo].[Lookup_Txn_GetByCustomerId]
-	@CustomerId varchar(21)
+﻿CREATE PROCEDURE [dbo].[Lookup_Txn_GetPageByCustomerId]
+    
+	@CustomerId varchar(21),
+    @Page int = 1,
+	@Size int = 50
 AS
 SET NOCOUNT ON
 BEGIN
@@ -24,4 +27,6 @@ BEGIN
   FROM [dbo].[TXN]
   WHERE [CUSTOMER_ID] = @CustomerId
   ORDER BY [TXN_ID]
+	OFFSET @Size * (@Page - 1) ROWS
+	FETCH NEXT @Size ROWS ONLY
 END

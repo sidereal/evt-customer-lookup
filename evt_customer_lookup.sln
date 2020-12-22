@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CustomerLookup_Database", "CustomerLookup_Database\CustomerLookup_Database.sqlproj", "{0EC57A3B-8965-4FBB-BE6B-DCC65EF45C5D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Context", "Context", "{ACBC5F2E-78EB-4EFD-AEBA-33A74BBDBAE6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Layer", "Data Layer", "{ACBC5F2E-78EB-4EFD-AEBA-33A74BBDBAE6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerLookup_Context", "CustomerLookup_Context\CustomerLookup_Context.csproj", "{AF08254C-4D20-494D-B0FD-2E16B3BF876F}"
 EndProject

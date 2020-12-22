@@ -17,7 +17,7 @@ namespace CustomerLookup.Context
 {
     public partial class CustomerLookupContext : ICustomerLookupContext
     {
-        
+
 
         public async Task<List<Txn>> GetTxnByCustomerIdAsync(string customerId)
         {
@@ -28,5 +28,17 @@ namespace CustomerLookup.Context
                 return txn.ToList();
             }
         }
+
+        public async Task<List<Txn>> GetTxnPageByCustomerIdAsync(string customerId, int page, int size)
+        {
+            var connString = _config.GetConnectionString("RAsty_exp_edm");
+            using (var conn = new SqlConnection(connString))
+            {
+                var txn = await conn.QueryAsync<Txn>("dbo.Lookup_Txn_GetPageByCustomerId @CustomerId @Page @Size",
+                    new { CustomerId = customerId, Page = page, Size = size });
+                return txn.ToList();
+            }
+        }
     }
 }
+

@@ -41,12 +41,12 @@ var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
     services.AddSingleton<ICustomerLookupCache, CustomerLookupCache>();
     services.AddSingleton<ICustomerLookupContext, CustomerLookupContext>();
     services.AddSingleton<CustomerLookupBusinessLogic>();
-    services.AddDistributedMemoryCache();
-    //services.AddStackExchangeRedisCache(options =>
-    //{
-    //    options.Configuration = context.Configuration.GetValue<string>("RedisConnection");
-    //    options.InstanceName = context.Configuration.GetValue<string>("RedisPrefix");
-    //});
+    //services.AddDistributedMemoryCache();
+    services.AddStackExchangeRedisCache(options =>
+    {
+        options.Configuration = context.Configuration.GetValue<string>("RedisConnection");
+        options.InstanceName = context.Configuration.GetValue<string>("RedisPrefix");
+    });
 
 }).UseSerilog().Build();
 

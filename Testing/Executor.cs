@@ -91,11 +91,12 @@ public class Executor
         var ff = await _businessLogic.GetAllAgreementsAsync(customer);
         if (ff is not null) _logger.LogInformation($"Agreements found -> {ff.Count}");
 
-        var gg = await _businessLogic.GetStatsByTypeAsync(customer, StatisticsTypes.s04);
-        if (gg is not null) _logger.LogInformation($"Stats 04 found -> {gg.Count}");
+        var gg = await _businessLogic.GetStatsByTypeAsync(customer, StatisticsTypes.s01);
+        if (gg is not null) _logger.LogInformation($"Stats 01 found -> {gg.Count}");
         var hh = await _businessLogic.GetStatsByTypeAsync(customer, StatisticsTypes.s04);
         if (hh is not null) _logger.LogInformation($"Stats 04 found -> {hh.Count}");
+
+        var ii = await _businessLogic.GetTxnPageAsync(customer,1,2);
+        if (ii is not null) _logger.LogInformation($"Txn found -> {ii.Count}");
     }
-
-
 }
