@@ -14,7 +14,7 @@ using CustomerLookup.BusinessLogic;
 
 namespace CustomerLookup.Api.Controllers
 {
-    [Route("api/Lookup")]
+    [Route("api/lookup")]
     [ApiController]
     public class CustomerLookupController : ControllerBase
     {
