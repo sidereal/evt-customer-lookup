@@ -21,6 +21,7 @@ using CustomerLookup.Cache;
 using CustomerLookup.Context;
 using AutoMapper;
 using CustomerLookup.Models.Maps;
+using Serilog;
 
 namespace CustomerLookup.Api
 {
@@ -71,6 +72,8 @@ namespace CustomerLookup.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CustomerLookup_Api v1"));
             }
+
+            app.UseSerilogRequestLogging();
 
             app.UseHttpsRedirection();
 

@@ -13,10 +13,11 @@ namespace CustomerLookup.BusinessLogic
 {
     public partial class CustomerLookupBusinessLogic
     {
-        public async Task<List<StatisticDto>> GetStatsByTypeAsync(string customerId, StatisticsTypes type)        {
+        public async Task<List<StatisticDto>> GetStatsByTypeAsync(string customerId, StatisticsTypes type)
+        {
 
             string prefix = type.ToString();
-            
+
             var result = await _cache.GetCacheValueAsync<List<Statistics>>(customerId, prefix);
 
             if (result is null)
@@ -38,7 +39,7 @@ namespace CustomerLookup.BusinessLogic
                     default:
                         return null;
                 }
-                
+
                 if (result is not null)
                 {
                     //_cache.SetCacheValueAsync(customerId, result, prefix);
@@ -53,6 +54,6 @@ namespace CustomerLookup.BusinessLogic
         }
     }
 
-    public enum StatisticsTypes { s01, s04, s05, s06 }
+    public enum StatisticsTypes { s01 = 1, s04 = 4, s05 = 5, s06 = 6 }
 }
-   
+
