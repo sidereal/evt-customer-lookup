@@ -20,7 +20,7 @@ namespace CustomerLookup.BusinessLogic
             if (result is null)
             {
                 result = _context.GetAgreementsByCustomerIdAsync(customerId).Result;
-                if (result is not null)
+                if (result.Count > 0)
                 {
                     _cache.SetCacheValue(customerId, result, agreementPrefix);
                     _logger.LogInformation($"Agreements > DB Hit for customer: {customerId}");
@@ -39,7 +39,7 @@ namespace CustomerLookup.BusinessLogic
             if (result is null)
             {
                 result = await _context.GetAgreementsByCustomerIdAsync(customerId);
-                if (result is not null)
+                if (result.Count > 0)
                 {
                     //_ = _cache.SetCacheValueAsync(customerId, result, agreementPrefix);
                     _logger.LogInformation($"Agreements > DB Hit for customer: {customerId}");

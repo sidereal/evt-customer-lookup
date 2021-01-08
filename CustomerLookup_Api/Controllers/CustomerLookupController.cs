@@ -44,7 +44,7 @@ namespace CustomerLookup.Api.Controllers
         {
 
             var agreements = await _businessLogic.GetAllAgreementsAsync(id);
-            if (agreements == null) return NotFound(new { message = $"Agreements for Customer {id} not found" });
+            if (agreements.Count == 0) return NotFound(new { message = $"Agreements for Customer {id} not found" });
 
             return Ok(agreements);
         }
@@ -54,7 +54,7 @@ namespace CustomerLookup.Api.Controllers
         {
 
             var txn = await _businessLogic.GetAllTxnAsync(id);
-            if (txn == null) return NotFound(new { message = $"Txn for Customer {id} not found" });
+            if (txn.Count == 0) return NotFound(new { message = $"Txn for Customer {id} not found" });
 
             return Ok(txn);
         }
@@ -64,7 +64,7 @@ namespace CustomerLookup.Api.Controllers
         {
 
             var txn = await _businessLogic.GetTxnPageAsync(id, page, size);
-            if (txn == null) return NotFound(new { message = $"Txn for Customer {id} not found" });
+            if (txn.Count == 0) return NotFound(new { message = $"Txn for Customer {id} not found" });
 
             return Ok(txn);
         }
@@ -74,7 +74,7 @@ namespace CustomerLookup.Api.Controllers
         {
             _logger.LogInformation(type.ToString());
             var stats = await _businessLogic.GetStatsByTypeAsync(id, type);
-            if (stats == null) return NotFound(new { message = $"Stats for Customer {id} not found" });
+            if (stats.Count == 0) return NotFound(new { message = $"Stats for Customer {id} not found" });
 
             return Ok(stats);
         }

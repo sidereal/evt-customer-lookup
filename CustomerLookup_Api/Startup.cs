@@ -79,6 +79,13 @@ namespace CustomerLookup.Api
 
             app.UseRouting();
 
+            app.UseCors(x => x
+                .SetIsOriginAllowed(origin => true)
+                //.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
