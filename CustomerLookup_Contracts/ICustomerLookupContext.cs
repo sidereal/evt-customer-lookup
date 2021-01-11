@@ -8,8 +8,11 @@ namespace CustomerLookup.Contracts
     public interface ICustomerLookupContext
     {
         Task<Customer> GetCustomerByCustomerIdAsync(string customerId);
-        
+
+
+        Task<int> GetTxnCountByCustomerIdAsync(string customerId);
         Task<List<Txn>> GetTxnByCustomerIdAsync(string customerId);
+
         Task<List<Txn>> GetTxnPageByCustomerIdAsync(string customerId, int page, int size);
         Task<List<Agreement>> GetAgreementsByCustomerIdAsync(string customerId);
 

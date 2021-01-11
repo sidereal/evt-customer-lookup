@@ -115,4 +115,14 @@ public class Executor
         Console.ReadLine();
     }
 
+    public async Task Testing06Async()
+    {
+        //380000000000000082438
+        var customer = "xxx380000000000000082438";
+        _logger.LogInformation("RUNNING");
+
+        var x = await _businessLogic.GetTxnCountAsync(customer);
+        _logger.LogInformation("{count}",x);
+        Console.ReadLine();
+    }
 }

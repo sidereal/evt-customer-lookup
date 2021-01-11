@@ -59,6 +59,16 @@ namespace CustomerLookup.Api.Controllers
             return Ok(txn);
         }
 
+        [HttpGet("customer/txncount")]
+        public async Task<IActionResult> GetCustomerTxnCountAsync(string id)
+        {
+
+            var txn = await _businessLogic.GetTxnCountAsync(id);
+            if (txn == 0) return NotFound(new { message = $"Txn for Customer {id} not found" });
+
+            return Ok(txn);
+        }
+
         [HttpGet("customer/txnpage")]
         public async Task<IActionResult> GetCustomerTxnByPageAsync(string id, int page, int size)
         {

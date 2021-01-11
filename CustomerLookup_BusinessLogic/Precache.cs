@@ -20,9 +20,9 @@ namespace CustomerLookup.BusinessLogic
 
             var customerTask = _context.GetCustomerByCustomerIdAsync(customerId).ContinueWith((t) =>
             {
-                    _logger.LogInformation("customer started");
-                    _cache.SetCacheValueAsync(customerId, t.Result);
-                    _logger.LogInformation("customer done");
+                _logger.LogInformation("customer started");
+                _cache.SetCacheValueAsync(customerId, t.Result);
+                _logger.LogInformation("customer done");
             });
 
             var agreementsTask = _context.GetAgreementsByCustomerIdAsync(customerId).ContinueWith((t) =>
@@ -39,6 +39,12 @@ namespace CustomerLookup.BusinessLogic
                 _logger.LogInformation("txn done");
             });
 
+            var txnCountTask = _context.GetTxnCountByCustomerIdAsync(customerId).ContinueWith((t) =>
+            {
+                _logger.LogInformation("txn count started");
+                _cache.SetCacheValueAsync(customerId, t.Result, txnCountPrefix);
+                _logger.LogInformation("txn count done");
+            });
 
             var stats01Task = _context.GetStatistics01ByCustomerIdAsync(customerId).ContinueWith((t) =>
             {
@@ -69,7 +75,7 @@ namespace CustomerLookup.BusinessLogic
                 _logger.LogInformation("stats06 done");
             });
 
-            await Task.WhenAll(customerTask, agreementsTask, txnTask, stats01Task, stats04Task, stats05Task, stats06Task);
+            await Task.WhenAll(customerTask, agreementsTask, txnTask, txnCountTask, stats01Task, stats04Task, stats05Task, stats06Task);
             _logger.LogInformation("all done");
         }
     }

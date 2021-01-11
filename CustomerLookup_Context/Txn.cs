@@ -39,6 +39,16 @@ namespace CustomerLookup.Context
                 return txn.ToList();
             }
         }
+
+        public async Task<int> GetTxnCountByCustomerIdAsync(string customerId)
+        {
+            var connString = _config.GetConnectionString("RAsty_exp_edm");
+            var sql = "SELECT COUNT(*) FROM TXN WHERE [CUSTOMER_ID] = @CustomerId";
+            using (var conn = new SqlConnection(connString))
+            {
+                return await conn.QueryFirstOrDefaultAsync<int>(sql, new { CustomerId = customerId });
+            }
+        }
     }
 }
 

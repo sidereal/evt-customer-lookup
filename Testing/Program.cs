@@ -53,7 +53,7 @@ var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
 
 
 var executor = ActivatorUtilities.CreateInstance<Executor>(host.Services);
-await executor.Testing05Async();
+await executor.Testing06Async();
 //executor.Testing02();
 
 

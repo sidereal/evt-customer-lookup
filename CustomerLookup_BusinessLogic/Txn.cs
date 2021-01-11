@@ -12,6 +12,7 @@ namespace CustomerLookup.BusinessLogic
     {
 
         string txnPrefix = "Txn";
+        string txnCountPrefix = "TxnCount";
 
         public List<TxnDto> GetAllTxn(string customerId)
         {
@@ -83,5 +84,27 @@ namespace CustomerLookup.BusinessLogic
             var pagedResult = result.GetRange(size * (page - 1), size);
             return _mapper.Map<List<TxnDto>>(pagedResult);
         }
+    
+        public async Task<int> GetTxnCountAsync(string customerId)
+        {
+            //return await _context.GetTxnCountByCustomerIdAsync(customerId);
+
+            var result = await _cache.GetCacheValueAsync<int>(customerId, txnCountPrefix);
+
+            if (result ==0)
+            {
+                result = await _context.GetTxnCountByCustomerIdAsync(customerId);
+                if (result > 0)
+                {
+                    //_ = _cache.SetCacheValueAsync(customerId, result, txnPrefix);
+                    _logger.LogInformation($"Txn > DB Hit for customer: {customerId}");
+                    _ = PrecacheAsync(customerId);
+                }
+                else _logger.LogInformation($"Txn > No Hit for customer: {customerId}");
+            }
+            else _logger.LogInformation($"Txn > Cache Hit for customer: {customerId}");
+
+            return result;
+        }    
     }
 }
