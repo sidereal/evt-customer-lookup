@@ -98,7 +98,7 @@ namespace CustomerLookup.BusinessLogic
                 {
                     //_ = _cache.SetCacheValueAsync(customerId, result, txnPrefix);
                     _logger.LogInformation($"Txn > DB Hit for customer: {customerId}");
-                    _ = PrecacheAsync(customerId);
+                    //_ = PrecacheAsync(customerId);
                 }
                 else _logger.LogInformation($"Txn > No Hit for customer: {customerId}");
             }
