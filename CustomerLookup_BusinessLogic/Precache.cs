@@ -17,66 +17,70 @@ namespace CustomerLookup.BusinessLogic
 
         async Task PrecacheAsync(string customerId)
         {
+            _logger.LogInformation("Precache customer {customerid} STARTED", customerId);
 
+
+            _logger.LogInformation("Precache customer {customerid} INFO started", customerId);
             var customerTask = _context.GetCustomerByCustomerIdAsync(customerId).ContinueWith((t) =>
             {
-                _logger.LogInformation("customer started");
                 _cache.SetCacheValueAsync(customerId, t.Result);
-                _logger.LogInformation("customer done");
+                _logger.LogInformation("Precache customer {customerid} INFO done", customerId);
             });
 
+
+            _logger.LogInformation("Precache customer {customerid} AGREEMENTS started", customerId);
             var agreementsTask = _context.GetAgreementsByCustomerIdAsync(customerId).ContinueWith((t) =>
             {
-                _logger.LogInformation("agreements started");
                 _cache.SetCacheValueAsync(customerId, t.Result, agreementPrefix);
-                _logger.LogInformation("agreements done");
+                _logger.LogInformation("Precache customer {customerid} AGREEMENTS done", customerId);
             });
 
+            _logger.LogInformation("Precache customer {customerid} TXN started", customerId);
             var txnTask = _context.GetTxnByCustomerIdAsync(customerId).ContinueWith((t) =>
             {
-                _logger.LogInformation("txn started");
                 _cache.SetCacheValueAsync(customerId, t.Result, txnPrefix);
-                _logger.LogInformation("txn done");
+                _logger.LogInformation("Precache customer {customerid} TXN done", customerId);
             });
+
+            _logger.LogInformation("Precache customer {customerid} TXN count started, customerId", customerId);
 
             var txnCountTask = _context.GetTxnCountByCustomerIdAsync(customerId).ContinueWith((t) =>
             {
-                _logger.LogInformation("txn count started");
                 _cache.SetCacheValueAsync(customerId, t.Result, txnCountPrefix);
-                _logger.LogInformation("txn count done");
+                _logger.LogInformation("Precache customer {customerid} TXN count done", customerId);
             });
 
+            _logger.LogInformation("Precache customer {customerid} STATS01 started", customerId);
             var stats01Task = _context.GetStatistics01ByCustomerIdAsync(customerId).ContinueWith((t) =>
             {
-                _logger.LogInformation("stats01 started");
                 _cache.SetCacheValueAsync(customerId, t.Result, StatisticsTypes.s01.ToString());
-                _logger.LogInformation("stats01 done");
+                _logger.LogInformation("Precache customer {customerid} STATS01 done", customerId);
             });
 
+            _logger.LogInformation("Precache customer {customerid} STATS04 started", customerId);
             var stats04Task = _context.GetStatistics04ByCustomerIdAsync(customerId).ContinueWith((t) =>
             {
-                _logger.LogInformation("stats04 started");
                 _cache.SetCacheValueAsync(customerId, t.Result, StatisticsTypes.s04.ToString());
-                _logger.LogInformation("stats04 done");
+                _logger.LogInformation("Precache customer {customerid} STATS04 done", customerId);
             });
 
+            _logger.LogInformation("Precache customer {customerid} STATS05 started", customerId);
             var stats05Task = _context.GetStatistics05ByCustomerIdAsync(customerId).ContinueWith((t) =>
             {
-                _logger.LogInformation("stats05 started");
                 _cache.SetCacheValueAsync(customerId, t.Result, StatisticsTypes.s05.ToString());
-                _logger.LogInformation("stats05 done");
+                _logger.LogInformation("Precache customer {customerid} STATS05 done", customerId);
             });
 
-
+            _logger.LogInformation("Precache customer {customerid} STATS06 started", customerId);
             var stats06Task = _context.GetStatistics06ByCustomerIdAsync(customerId).ContinueWith((t) =>
             {
-                _logger.LogInformation("stats06 started");
                 _cache.SetCacheValueAsync(customerId, t.Result, StatisticsTypes.s06.ToString());
-                _logger.LogInformation("stats06 done");
+                _logger.LogInformation("Precache customer {customerid} STATS06 done", customerId);
             });
 
             await Task.WhenAll(customerTask, agreementsTask, txnTask, txnCountTask, stats01Task, stats04Task, stats05Task, stats06Task);
-            _logger.LogInformation("all done");
+            _logger.LogInformation("Precache customer {customerid} ENDED", customerId);
+            //_logger.LogInformation("all done");
         }
     }
 }
