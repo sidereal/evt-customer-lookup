@@ -1,11 +1,4 @@
-﻿
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using CustomerLookup.Contracts;
-using CustomerLookup.Models.DataModels;
-
-using Microsoft.Extensions.Configuration;
+﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
 
@@ -15,9 +8,22 @@ namespace CustomerLookup.BusinessLogic
     public partial class CustomerLookupBusinessLogic
     {
 
-        async Task PrecacheAsync(string customerId)
+        private async Task PrecacheAsync(string customerId)
         {
             _logger.LogInformation("Precache customer {customerid} STARTED", customerId);
+
+            
+            lock (_cacheLock)
+            {
+                //check to see if caching for this user is already in progress
+                if (_usersBeingCached.Contains(customerId))
+                {
+                    _logger.LogInformation("Precache customer {customerid} detected caching in process .", customerId);
+                    return;
+                }
+                //set caching status
+                _usersBeingCached.Add(customerId);
+            }
 
 
             _logger.LogInformation("Precache customer {customerid} INFO started", customerId);
@@ -79,8 +85,12 @@ namespace CustomerLookup.BusinessLogic
             });
 
             await Task.WhenAll(customerTask, agreementsTask, txnTask, txnCountTask, stats01Task, stats04Task, stats05Task, stats06Task);
+            
+            //clear caching status when we're done
+            lock (_cacheLock) _usersBeingCached.Remove(customerId);
+
             _logger.LogInformation("Precache customer {customerid} ENDED", customerId);
-            //_logger.LogInformation("all done");
+            
         }
     }
 }

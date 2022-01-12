@@ -11,7 +11,7 @@ namespace CustomerLookup.BusinessLogic
     public partial class CustomerLookupBusinessLogic
     {
 
-        string agreementPrefix = "Agreements";
+        private const string agreementPrefix = "Agreements";
 
         public List<AgreementDto> GetAllAgreements(string customerId)
         {

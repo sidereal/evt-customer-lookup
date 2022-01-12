@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 
 
 using AutoMapper;
+using System.Collections.Generic;
 
 namespace CustomerLookup.BusinessLogic
 {
@@ -18,6 +19,8 @@ namespace CustomerLookup.BusinessLogic
         private readonly ICustomerLookupContext _context;
         private readonly ICustomerLookupCache _cache;
         private readonly IMapper _mapper;
+        private readonly object _cacheLock;
+        private readonly HashSet<string> _usersBeingCached;
 
         public CustomerLookupBusinessLogic(IConfiguration config, ILogger<CustomerLookupBusinessLogic> logger, ICustomerLookupContext context, ICustomerLookupCache cache, IMapper mapper)
         {
@@ -26,6 +29,8 @@ namespace CustomerLookup.BusinessLogic
             _context = context;
             _cache = cache;
             _mapper = mapper;
+            _cacheLock = new object();
+            _usersBeingCached = new HashSet<string>();
         }
     }
 }
